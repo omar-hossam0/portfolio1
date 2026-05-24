@@ -1,0 +1,212 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    background: #000000;
+    color: #ffffff;
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background: rgba(59,130,246,0.4);
+    color: #ffffff;
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.08);
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(255,255,255,0.15);
+  }
+}
+
+@layer components {
+  /* ── Glass Card Base ─────────────────────────── */
+  .glass {
+    background: rgba(255,255,255,0.04);
+    backdrop-filter: blur(40px);
+    -webkit-backdrop-filter: blur(40px);
+    border: 1px solid rgba(255,255,255,0.08);
+    box-shadow:
+      0 8px 32px rgba(0,0,0,0.3),
+      inset 0 1px 1px rgba(255,255,255,0.04);
+  }
+
+  /* ── Glass Strong (more opaque) ──────────────── */
+  .glass-strong {
+    background: rgba(255,255,255,0.06);
+    backdrop-filter: blur(60px);
+    -webkit-backdrop-filter: blur(60px);
+    border: 1px solid rgba(255,255,255,0.1);
+    box-shadow:
+      0 16px 48px rgba(0,0,0,0.4),
+      inset 0 1px 1px rgba(255,255,255,0.06);
+  }
+
+  /* ── Glass Reflection (shimmer overlay) ───────── */
+  .glass-reflection {
+    position: relative;
+    overflow: hidden;
+  }
+  .glass-reflection::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+      135deg,
+      transparent 40%,
+      rgba(255,255,255,0.03) 50%,
+      transparent 60%
+    );
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* ── Glass Input Fields ───────────────────────── */
+  .glass-input {
+    background: rgba(255,255,255,0.03);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.08);
+    color: #ffffff;
+    outline: none;
+    transition: all 0.3s ease;
+  }
+  .glass-input::placeholder {
+    color: rgba(255,255,255,0.25);
+  }
+  .glass-input:focus {
+    border-color: rgba(59,130,246,0.4);
+    box-shadow: 0 0 20px rgba(59,130,246,0.1), inset 0 1px 1px rgba(59,130,246,0.06);
+  }
+
+  /* ── Glass Buttons ────────────────────────────── */
+  .glass-btn {
+    background: rgba(255,255,255,0.06);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: rgba(255,255,255,0.7);
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  .glass-btn:hover {
+    background: rgba(255,255,255,0.1);
+    color: #ffffff;
+    box-shadow: 0 0 15px rgba(255,255,255,0.05);
+  }
+
+  .glass-btn-accent {
+    background: linear-gradient(135deg, #3B82F6, #2563EB);
+    border: 1px solid rgba(59,130,246,0.3);
+    color: #ffffff;
+    cursor: pointer;
+    box-shadow: 0 0 20px rgba(59,130,246,0.2);
+    transition: all 0.3s ease;
+  }
+  .glass-btn-accent:hover {
+    box-shadow: 0 0 30px rgba(59,130,246,0.4), 0 0 60px rgba(59,130,246,0.1);
+    transform: translateY(-1px);
+  }
+
+  /* ── Gradient Border (animated) ───────────────── */
+  .gradient-border {
+    position: relative;
+  }
+  .gradient-border::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, rgba(59,130,246,0.4), transparent 50%, rgba(59,130,246,0.2));
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  /* ── Section Container ────────────────────────── */
+  .section-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+  @media (min-width: 768px) {
+    .section-container {
+      padding: 0 48px;
+    }
+  }
+
+  /* ── Text Glow ────────────────────────────────── */
+  .text-glow {
+    text-shadow: 0 0 20px rgba(59,130,246,0.4), 0 0 40px rgba(59,130,246,0.1);
+  }
+
+  /* ── Floating Orb (used by BackgroundOrbs) ───── */
+  .orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    pointer-events: none;
+    opacity: 0.4;
+  }
+
+  /* ── Shimmer animation (for loading / decorative) */
+  .shimmer-bg {
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(255,255,255,0.03) 50%,
+      transparent 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 2s linear infinite;
+  }
+
+  /* ── Perspective wrapper for 3D hover ─────────── */
+  .perspective {
+    perspective: 1000px;
+  }
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
+  .backface-hidden {
+    backface-visibility: hidden;
+  }
+}
+
+@layer utilities {
+  /* ── Smooth scrolling anchor offset ────────────── */
+  .scroll-offset {
+    scroll-margin-top: 80px;
+  }
+}
