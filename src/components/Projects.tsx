@@ -1,4 +1,9 @@
 import { ExternalLink, Github, ArrowUpRight, Star } from "lucide-react";
+import elk2dImg from "../assets/img/elk2d.png";
+import ocrImg from "../assets/img/ocr.png";
+import parkingImg from "../assets/img/parking-2.png";
+import flyImg from "../assets/img/fly.jpeg";
+import movieImg from "../assets/img/movie.png";
 import { useScrollAnimation } from "../hooks/useScrollAnimation";
 
 interface Project {
@@ -21,7 +26,7 @@ const sampleProjects: Project[] = [
     description:
       "Elka2D is an engaging educational platform that brings history to life through well-organized courses, live teacher-led sessions, and an always-available AI assistant. The site emphasizes interactive learning, measurable student progress, and trusted, expert-reviewed content — serving thousands of learners with a range of specialized history courses and real-time support.",
     // Image located in project img folder (elk2d.png)
-    imageUrl: "/img/elk2d.png",
+    imageUrl: elk2dImg,
     demoUrl: "https://elka2d.cloud/",
     githubUrl: "#",
     technologies: ["React", "Node.js", "SQL"],
@@ -34,7 +39,7 @@ const sampleProjects: Project[] = [
     title: "OCR Project Omega",
     description:
       "AI-powered document management platform with OCR extraction, camera capture, searchable archives, and full tracking for files, locations, and access history.",
-    imageUrl: "/img/ocr.png",
+    imageUrl: ocrImg,
     demoUrl: "https://ocr-project-omega.vercel.app",
     githubUrl: "#",
     technologies: [
@@ -54,7 +59,7 @@ const sampleProjects: Project[] = [
     title: "Smart Parking System Dashboard",
     description:
       "Real-time smart parking dashboard for monitoring four slots, controlling the gate, viewing live activity, and tracking parking duration and history through MQTT and ESP integration.",
-    imageUrl: "/img/parking-2.png",
+    imageUrl: parkingImg,
     demoUrl: "https://smart-parking-1.vercel.app",
     githubUrl: "#",
     technologies: ["React", "MQTT", "ESP32", "Node.js"],
@@ -67,7 +72,7 @@ const sampleProjects: Project[] = [
     title: "Transit Tourism App",
     description:
       "A smart travel app for transit passengers that turns waiting time into short tourism experiences. It offers ground trips from Cairo International Airport, flying taxi tours, AI suggestions, maps, booking management, and digital payments for a smooth city-exploration journey.",
-    imageUrl: "/img/fly.jpeg",
+    imageUrl: flyImg,
     demoUrl:
       "https://drive.google.com/file/d/1NG_5e5TzZzc9Dnd0XlBbhgyMv9iaWkwY/view?usp=sharing",
     githubUrl: "#",
@@ -81,7 +86,7 @@ const sampleProjects: Project[] = [
     title: "QuickShow",
     description:
       "A modern movie discovery platform designed to browse films, theaters, releases, and favorites with a cinematic interface, fast search, and a smooth login-driven user experience.",
-    imageUrl: "/img/movie.png",
+    imageUrl: movieImg,
     demoUrl: "https://quickshow.vercel.app",
     githubUrl: "#",
     technologies: ["React", "Next.js", "Tailwind CSS"],

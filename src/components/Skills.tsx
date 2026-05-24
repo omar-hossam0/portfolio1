@@ -1,4 +1,5 @@
 import { useScrollAnimation } from "../hooks/useScrollAnimation";
+import awsImg from "../assets/img/aws.svg";
 
 const skills = [
   { name: "HTML5", slug: "html5", color: "E34F26" },
@@ -10,7 +11,7 @@ const skills = [
   { name: "Express", slug: "express", color: "FFFFFF" },
   { name: "MongoDB", slug: "mongodb", color: "47A248" },
   { name: "Docker", slug: "docker", color: "2496ED" },
-  { name: "AWS", slug: "amazonaws", color: "232F3E", iconSrc: "/img/aws.svg" },
+  { name: "AWS", slug: "amazonaws", color: "232F3E", iconSrc: awsImg },
   { name: "Git", slug: "git", color: "F05032" },
   { name: "GitHub", slug: "github", color: "FFFFFF" },
   { name: "Dart", slug: "dart", color: "0175C2" },

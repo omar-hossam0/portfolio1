@@ -1,5 +1,8 @@
 import { useState } from "react";
 import { Award, ExternalLink, Calendar, Building2, Shield } from "lucide-react";
+import c1Img from "../assets/img/c1.png";
+import c2Img from "../assets/img/c2.png";
+import c3Img from "../assets/img/c3.png";
 import { useScrollAnimation } from "../hooks/useScrollAnimation";
 
 interface Certification {
@@ -18,7 +21,7 @@ const sampleCertifications: Certification[] = [
     title: "MEAN Stack Web Development",
     issuingOrganization: "ITIDA / NTI",
     issueDate: "2025-09",
-    imageUrl: "/img/c1.png",
+    imageUrl: c1Img,
     verificationUrl: "#",
     credentialId: "ITIDA-NTI-2025-01",
   },
@@ -27,7 +30,7 @@ const sampleCertifications: Certification[] = [
     title: "Sprints x Microsoft Summer Camp - Web Development",
     issuingOrganization: "Sprints / Microsoft",
     issueDate: "2025-07",
-    imageUrl: "/img/c2.png",
+    imageUrl: c2Img,
     verificationUrl: "#",
     credentialId: "SPR-MSFT-2025-02",
   },
@@ -36,7 +39,7 @@ const sampleCertifications: Certification[] = [
     title: "Artificial Intelligence Ambassadors Program",
     issuingOrganization: "NTI / Ministry of Communications",
     issueDate: "2025-06",
-    imageUrl: "/img/c3.png",
+    imageUrl: c3Img,
     verificationUrl: "#",
     credentialId: "AI-AMB-2025-03",
   },

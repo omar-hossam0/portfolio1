@@ -23,6 +23,7 @@ function TextAnimator({ text, speed = 40 }: { text: string; speed?: number }) {
     </p>
   );
 }
+import omarImg from "../assets/img/omar.jpeg";
 import {
   ArrowDown,
   Download,
@@ -129,7 +130,7 @@ export default function Hero() {
               <div className="absolute -inset-2 rounded-2xl bg-gradient-to-br from-accent/25 via-transparent to-accent/15 blur-lg opacity-50 group-hover:opacity-80 transition-opacity duration-500" />
               <div className="relative gradient-border rounded-2xl p-1 overflow-hidden">
                 <img
-                  src="/img/omar.jpeg"
+                  src={omarImg}
                   alt="Omar Hossam portrait"
                   className="w-full aspect-square rounded-xl object-cover transition-transform duration-700 group-hover:scale-105"
                   loading="eager"
