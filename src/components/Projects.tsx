@@ -16,82 +16,70 @@ interface Project {
 
 const sampleProjects: Project[] = [
   {
-    id: '1',
-    title: 'CloudSync Dashboard',
+    id: 'elka2d',
+    title: 'elka2d',
     description:
-      'Real-time cloud infrastructure monitoring and alerting platform with stunning visualizations and intelligent anomaly detection.',
-    imageUrl: 'https://images.pexels.com/photos/8294554/pexels-photo-8294554.jpeg?auto=compress&cs=tinysrgb&w=600',
-    demoUrl: '#',
+      'Elka2D is an engaging educational platform that brings history to life through well-organized courses, live teacher-led sessions, and an always-available AI assistant. The site emphasizes interactive learning, measurable student progress, and trusted, expert-reviewed content — serving thousands of learners with a range of specialized history courses and real-time support.',
+    // Image located in project img folder (elk2d.png)
+    imageUrl: '/img/elk2d.png',
+    demoUrl: 'https://elka2d.cloud/',
     githubUrl: '#',
-    technologies: ['React', 'TypeScript', 'WebSocket', 'D3.js'],
-    tags: ['Cloud', 'Real-time', 'SaaS'],
+    technologies: ['React', 'Node.js', 'SQL'],
+    tags: ['Design', 'Web'],
     status: 'live',
     featured: true,
   },
   {
-    id: '2',
-    title: 'NeuralVision AI',
+    id: 'ocr-project-omega',
+    title: 'OCR Project Omega',
     description:
-      'Computer vision platform leveraging deep learning models for automated image classification, object detection, and visual inspection.',
-    imageUrl: 'https://images.pexels.com/photos/8386440/pexels-photo-8386440.jpeg?auto=compress&cs=tinysrgb&w=600',
-    demoUrl: '#',
+      'AI-powered document management platform with OCR extraction, camera capture, searchable archives, and full tracking for files, locations, and access history.',
+    imageUrl: '/img/ocr.png',
+    demoUrl: 'https://ocr-project-omega.vercel.app',
     githubUrl: '#',
-    technologies: ['Python', 'TensorFlow', 'FastAPI', 'Docker'],
-    tags: ['AI/ML', 'Computer Vision', 'API'],
+    technologies: ['Next.js', 'React', 'Tailwind CSS', 'Node.js', 'Express', 'MongoDB'],
+    tags: ['OCR', 'Document', 'AI'],
     status: 'in-progress',
     featured: false,
   },
   {
     id: '3',
-    title: 'FinTrack Pro',
+    title: 'Smart Parking System Dashboard',
     description:
-      'Smart financial tracking platform with budgeting tools, investment portfolio analysis, and predictive spending insights.',
-    imageUrl: 'https://images.pexels.com/photos/590022/pexels-photo-590022.jpeg?auto=compress&cs=tinysrgb&w=600',
-    demoUrl: '#',
+      'Real-time smart parking dashboard for monitoring four slots, controlling the gate, viewing live activity, and tracking parking duration and history through MQTT and ESP integration.',
+    imageUrl: '/img/parking (2).png',
+    demoUrl: 'https://smart-parking-1.vercel.app',
     githubUrl: '#',
-    technologies: ['React', 'Node.js', 'PostgreSQL', 'Stripe'],
-    tags: ['FinTech', 'Analytics', 'SaaS'],
+    technologies: ['React', 'MQTT', 'ESP32', 'Node.js'],
+    tags: ['IoT', 'Dashboard', 'Real-time'],
     status: 'live',
     featured: false,
   },
   {
     id: '4',
-    title: 'DevCollab Hub',
+    title: 'Transit Tourism App',
     description:
-      'Real-time collaborative code editing platform with integrated terminal, version control, and team communication tools.',
-    imageUrl: 'https://images.pexels.com/photos/546819/pexels-photo-546819.jpeg?auto=compress&cs=tinysrgb&w=600',
-    demoUrl: '#',
+      'A smart travel app for transit passengers that turns waiting time into short tourism experiences. It offers ground trips from Cairo International Airport, flying taxi tours, AI suggestions, maps, booking management, and digital payments for a smooth city-exploration journey.',
+    imageUrl: '/img/fly.jpeg',
+    demoUrl: 'https://drive.google.com/file/d/1NG_5e5TzZzc9Dnd0XlBbhgyMv9iaWkwY/view?usp=sharing',
     githubUrl: '#',
-    technologies: ['Vue.js', 'WebSocket', 'Redis', 'Docker'],
-    tags: ['Collaboration', 'DevTools', 'Real-time'],
-    status: 'in-progress',
+    technologies: ['Flutter', 'Dart', 'Firebase'],
+    tags: ['Travel', 'Transit', 'Booking'],
+    status: 'live',
     featured: false,
   },
   {
     id: '5',
-    title: 'EcoTracker',
+    title: 'QuickShow',
     description:
-      'Environmental impact tracking platform helping businesses measure, report, and reduce their carbon footprint with actionable sustainability insights.',
-    imageUrl: 'https://images.pexels.com/photos/9546808/pexels-photo-9546808.jpeg?auto=compress&cs=tinysrgb&w=600',
-    demoUrl: '#',
+      'A modern movie discovery platform designed to browse films, theaters, releases, and favorites with a cinematic interface, fast search, and a smooth login-driven user experience.',
+    imageUrl: '/img/movie.png',
+    demoUrl: 'https://quickshow.vercel.app',
     githubUrl: '#',
-    technologies: ['React', 'Python', 'GraphQL', 'AWS'],
-    tags: ['Sustainability', 'Analytics', 'Platform'],
-    status: 'completed',
-    featured: false,
-  },
-  {
-    id: '6',
-    title: 'HealthPulse API',
-    description:
-      'HIPAA-compliant health data API platform enabling secure exchange of medical records and real-time health monitoring between providers.',
-    imageUrl: 'https://images.pexels.com/photos/7285604/pexels-photo-7285604.jpeg?auto=compress&cs=tinysrgb&w=600',
-    demoUrl: '#',
-    githubUrl: '#',
-    technologies: ['Node.js', 'PostgreSQL', 'OAuth2', 'FHIR'],
-    tags: ['HealthTech', 'API', 'Security'],
+    technologies: ['React', 'Next.js', 'Tailwind CSS'],
+    tags: ['Movies', 'Streaming', 'UI'],
     status: 'live',
-    featured: true,
+    featured: false,
   },
 ];
 
@@ -155,25 +143,17 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
             </span>
           </div>
 
-          {/* Hover overlay with links */}
-          <div className="absolute inset-0 flex items-center justify-center gap-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          {/* Hover overlay with single Visit button (project link) */}
+          <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
             <a
               href={project.demoUrl}
-              className="glass-btn-accent p-3 rounded-xl text-white hover:scale-110 transition-transform"
-              aria-label="View live demo"
+              className="glass-btn-accent flex items-center gap-2 px-4 py-2 rounded-xl text-white hover:scale-105 transition-transform"
+              aria-label="Open project"
               target="_blank"
               rel="noopener noreferrer"
             >
-              <ExternalLink size={20} />
-            </a>
-            <a
-              href={project.githubUrl}
-              className="glass-btn p-3 rounded-xl text-white hover:scale-110 transition-transform"
-              aria-label="View source code"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Github size={20} />
+              <ExternalLink size={18} />
+              <span className="font-semibold">Visit</span>
             </a>
           </div>
         </div>

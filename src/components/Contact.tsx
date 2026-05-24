@@ -15,25 +15,22 @@ import {
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
 
 const contactInfo = [
-  { icon: Mail, label: 'Email', value: 'alex@portfolio.dev', href: 'mailto:alex@portfolio.dev' },
-  { icon: Phone, label: 'Phone', value: '+1 (415) 555-0192', href: 'tel:+14155550192' },
-  { icon: MapPin, label: 'Location', value: 'San Francisco, CA', href: '#' },
-  { icon: Clock, label: 'Availability', value: 'Open to opportunities', href: '#' },
+  { icon: Mail, label: 'Email', value: 'amorhossam2005@gmail.com', href: 'mailto:amorhossam2005@gmail.com' },
+  { icon: Phone, label: 'Phone', value: '01555888126', href: 'tel:01555888126' },
+  { icon: MapPin, label: 'Location', value: '19 marwa street', href: '#' },
 ];
 
 const socialLinks = [
-  { icon: Linkedin, label: 'LinkedIn', href: '#', color: 'hover:text-[#0A66C2]' },
-  { icon: Github, label: 'GitHub', href: '#', color: 'hover:text-white' },
-  { icon: Twitter, label: 'X / Twitter', href: '#', color: 'hover:text-white' },
-  { icon: Facebook, label: 'Facebook', href: '#', color: 'hover:text-[#1877F2]' },
-  { icon: Instagram, label: 'Instagram', href: '#', color: 'hover:text-[#E4405F]' },
+  { icon: Github, label: 'GitHub', href: 'https://github.com/omar-hossam0', color: 'hover:text-white' },
+  { icon: Linkedin, label: 'LinkedIn', href: 'https://www.linkedin.com/in/omar-hossam-435224321/', color: 'hover:text-[#0A66C2]' },
+  { icon: Facebook, label: 'Facebook', href: 'https://www.facebook.com/omar.hossam.1048554/', color: 'hover:text-[#1877F2]' },
 ];
 
 export default function Contact() {
   const { ref: titleRef, isVisible: titleVisible } = useScrollAnimation(0.2);
   const { ref: formRef, isVisible: formVisible } = useScrollAnimation(0.1);
 
-  const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
+  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [submitted, setSubmitted] = useState(false);
   const [sending, setSending] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -53,12 +50,34 @@ export default function Contact() {
     if (!validate()) return;
 
     setSending(true);
-    // Simulate sending
-    await new Promise((r) => setTimeout(r, 1200));
-    setSending(false);
-    setSubmitted(true);
-    setFormData({ name: '', email: '', subject: '', message: '' });
-    setTimeout(() => setSubmitted(false), 5000);
+    try {
+      const response = await fetch('https://formsubmit.co/ajax/amorhossam2005@gmail.com', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+          _subject: `New Contact Form Submission from ${formData.name}`
+        })
+      });
+
+      if (response.ok) {
+        setSubmitted(true);
+        setFormData({ name: '', email: '', message: '' });
+        setTimeout(() => setSubmitted(false), 5000);
+      } else {
+        throw new Error('Failed to send message');
+      }
+    } catch (error) {
+      console.error('Error sending message:', error);
+      setErrors({ form: 'Something went wrong. Please try again later.' });
+    } finally {
+      setSending(false);
+    }
   };
 
   const handleChange = (field: string, value: string) => {
@@ -204,21 +223,6 @@ export default function Contact() {
                     </div>
                   </div>
 
-                  {/* Subject */}
-                  <div>
-                    <label htmlFor="subject" className="block text-sm font-medium text-white/60 mb-2">
-                      Subject
-                    </label>
-                    <input
-                      id="subject"
-                      type="text"
-                      value={formData.subject}
-                      onChange={(e) => handleChange('subject', e.target.value)}
-                      className="glass-input w-full rounded-xl px-4 py-3 text-sm"
-                      placeholder="What's this about?"
-                    />
-                  </div>
-
                   {/* Message */}
                   <div>
                     <label htmlFor="message" className="block text-sm font-medium text-white/60 mb-2">
@@ -237,6 +241,8 @@ export default function Contact() {
                     />
                     {errors.message && <p className="mt-1 text-xs text-red-400">{errors.message}</p>}
                   </div>
+
+                  {errors.form && <p className="text-center text-sm text-red-400">{errors.form}</p>}
 
                   <button
                     type="submit"

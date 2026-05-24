@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Award, ExternalLink, Calendar, Building2, Shield } from 'lucide-react';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
 
@@ -14,61 +15,34 @@ interface Certification {
 const sampleCertifications: Certification[] = [
   {
     id: '1',
-    title: 'AWS Solutions Architect - Professional',
-    issuingOrganization: 'Amazon Web Services',
-    issueDate: '2024-03',
-    imageUrl: 'https://images.pexels.com/photos/60504/security-protection-anti-virus-software.jpg?auto=compress&cs=tinysrgb&w=400',
+    title: 'MEAN Stack Web Development',
+    issuingOrganization: 'ITIDA / NTI',
+    issueDate: '2025-09',
+    imageUrl: '/img/c1.png',
     verificationUrl: '#',
-    credentialId: 'AWS-SAP-2024-XXXXX',
+    credentialId: 'ITIDA-NTI-2025-01',
   },
   {
     id: '2',
-    title: 'Google Cloud Professional Developer',
-    issuingOrganization: 'Google Cloud',
-    issueDate: '2024-01',
-    imageUrl: 'https://images.pexels.com/photos/1089440/pexels-photo-1089440.jpeg?auto=compress&cs=tinysrgb&w=400',
+    title: 'Sprints x Microsoft Summer Camp - Web Development',
+    issuingOrganization: 'Sprints / Microsoft',
+    issueDate: '2025-07',
+    imageUrl: '/img/c2.png',
     verificationUrl: '#',
-    credentialId: 'GCP-PD-2024-XXXXX',
+    credentialId: 'SPR-MSFT-2025-02',
   },
   {
     id: '3',
-    title: 'Meta Front-End Developer Certificate',
-    issuingOrganization: 'Meta',
-    issueDate: '2023-09',
-    imageUrl: 'https://images.pexels.com/photos/1181271/pexels-photo-1181271.jpeg?auto=compress&cs=tinysrgb&w=400',
+    title: 'Artificial Intelligence Ambassadors Program',
+    issuingOrganization: 'NTI / Ministry of Communications',
+    issueDate: '2025-06',
+    imageUrl: '/img/c3.png',
     verificationUrl: '#',
-    credentialId: 'META-FED-2023-XXXXX',
-  },
-  {
-    id: '4',
-    title: 'Certified Kubernetes Administrator',
-    issuingOrganization: 'Cloud Native Computing Foundation',
-    issueDate: '2023-06',
-    imageUrl: 'https://images.pexels.com/photos/7788002/pexels-photo-7788002.jpeg?auto=compress&cs=tinysrgb&w=400',
-    verificationUrl: '#',
-    credentialId: 'CKA-2023-XXXXX',
-  },
-  {
-    id: '5',
-    title: 'MongoDB Certified Developer',
-    issuingOrganization: 'MongoDB University',
-    issueDate: '2023-03',
-    imageUrl: 'https://images.pexels.com/photos/270404/pexels-photo-270404.jpeg?auto=compress&cs=tinysrgb&w=400',
-    verificationUrl: '#',
-    credentialId: 'MDB-DEV-2023-XXXXX',
-  },
-  {
-    id: '6',
-    title: 'HashiCorp Terraform Associate',
-    issuingOrganization: 'HashiCorp',
-    issueDate: '2023-01',
-    imageUrl: 'https://images.pexels.com/photos/8294554/pexels-photo-8294554.jpeg?auto=compress&cs=tinysrgb&w=400',
-    verificationUrl: '#',
-    credentialId: 'HC-TA-2023-XXXXX',
+    credentialId: 'AI-AMB-2025-03',
   },
 ];
 
-function CertCard({ cert, index }: { cert: Certification; index: number }) {
+function CertCard({ cert, index, onZoom }: { cert: Certification; index: number; onZoom: (imageUrl: string) => void }) {
   const { ref, isVisible } = useScrollAnimation(0.1);
 
   return (
@@ -117,17 +91,16 @@ function CertCard({ cert, index }: { cert: Certification; index: number }) {
           <span className="font-mono">{cert.credentialId}</span>
         </div>
 
-        {/* Verify button */}
-        <a
-          href={cert.verificationUrl}
-          target="_blank"
-          rel="noopener noreferrer"
+        {/* Zoom button */}
+        <button
+          type="button"
+          onClick={() => onZoom(cert.imageUrl)}
           className="glass-btn-accent mt-auto px-4 py-2 rounded-xl text-sm font-medium text-white flex items-center justify-center gap-2"
         >
           <Award size={14} />
           View Certificate
           <ExternalLink size={12} />
-        </a>
+        </button>
       </div>
     </div>
   );
@@ -135,6 +108,7 @@ function CertCard({ cert, index }: { cert: Certification; index: number }) {
 
 export default function Certifications() {
   const { ref: titleRef, isVisible: titleVisible } = useScrollAnimation(0.2);
+  const [activeImage, setActiveImage] = useState<string | null>(null);
 
   return (
     <section id="certifications" className="relative py-24 md:py-32">
@@ -172,10 +146,31 @@ export default function Certifications() {
         {/* Certifications grid */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {sampleCertifications.map((cert, i) => (
-            <CertCard key={cert.id} cert={cert} index={i} />
+            <CertCard key={cert.id} cert={cert} index={i} onZoom={setActiveImage} />
           ))}
         </div>
       </div>
+
+      {activeImage && (
+        <div
+          className="fixed inset-0 z-[60] flex items-center justify-center bg-black/60 backdrop-blur-xl px-4"
+          onClick={() => setActiveImage(null)}
+        >
+          <div
+            className="relative max-h-[90vh] max-w-5xl overflow-hidden rounded-3xl border border-white/10 bg-[#0b1220] shadow-2xl"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <button
+              type="button"
+              onClick={() => setActiveImage(null)}
+              className="absolute right-4 top-4 z-10 rounded-full bg-black/40 px-3 py-1 text-sm text-white/80 backdrop-blur-sm hover:text-white"
+            >
+              Close
+            </button>
+            <img src={activeImage} alt="Certificate preview" className="block max-h-[90vh] w-full object-contain" />
+          </div>
+        </div>
+      )}
     </section>
   );
 }
