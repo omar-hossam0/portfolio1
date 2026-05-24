@@ -54,7 +54,7 @@ const sampleProjects: Project[] = [
     title: "Smart Parking System Dashboard",
     description:
       "Real-time smart parking dashboard for monitoring four slots, controlling the gate, viewing live activity, and tracking parking duration and history through MQTT and ESP integration.",
-    imageUrl: "/img/parking (2).png",
+    imageUrl: "/img/parking-2.png",
     demoUrl: "https://smart-parking-1.vercel.app",
     githubUrl: "#",
     technologies: ["React", "MQTT", "ESP32", "Node.js"],
