@@ -27,6 +27,8 @@ const sampleProjects: Project[] = [
       "Elka2D is an engaging educational platform that brings history to life through well-organized courses, live teacher-led sessions, and an always-available AI assistant. The site emphasizes interactive learning, measurable student progress, and trusted, expert-reviewed content — serving thousands of learners with a range of specialized history courses and real-time support.",
     // Image located in project img folder (elk2d.png)
     imageUrl: elk2dImg,
+    imageFallback:
+      "https://raw.githubusercontent.com/omar-hossam0/portfolio1/main/src/assets/img/elk2d.png",
     demoUrl: "https://elka2d.cloud/",
     githubUrl: "#",
     technologies: ["React", "Node.js", "SQL"],
@@ -40,6 +42,8 @@ const sampleProjects: Project[] = [
     description:
       "AI-powered document management platform with OCR extraction, camera capture, searchable archives, and full tracking for files, locations, and access history.",
     imageUrl: ocrImg,
+    imageFallback:
+      "https://raw.githubusercontent.com/omar-hossam0/portfolio1/main/src/assets/img/ocr.png",
     demoUrl: "https://ocr-project-omega.vercel.app",
     githubUrl: "#",
     technologies: [
@@ -60,6 +64,8 @@ const sampleProjects: Project[] = [
     description:
       "Real-time smart parking dashboard for monitoring four slots, controlling the gate, viewing live activity, and tracking parking duration and history through MQTT and ESP integration.",
     imageUrl: parkingImg,
+    imageFallback:
+      "https://raw.githubusercontent.com/omar-hossam0/portfolio1/main/src/assets/img/parking-2.png",
     demoUrl: "https://smart-parking-1.vercel.app",
     githubUrl: "#",
     technologies: ["React", "MQTT", "ESP32", "Node.js"],
@@ -73,6 +79,8 @@ const sampleProjects: Project[] = [
     description:
       "A smart travel app for transit passengers that turns waiting time into short tourism experiences. It offers ground trips from Cairo International Airport, flying taxi tours, AI suggestions, maps, booking management, and digital payments for a smooth city-exploration journey.",
     imageUrl: flyImg,
+    imageFallback:
+      "https://raw.githubusercontent.com/omar-hossam0/portfolio1/main/src/assets/img/fly.jpeg",
     demoUrl:
       "https://drive.google.com/file/d/1NG_5e5TzZzc9Dnd0XlBbhgyMv9iaWkwY/view?usp=sharing",
     githubUrl: "#",
@@ -87,6 +95,8 @@ const sampleProjects: Project[] = [
     description:
       "A modern movie discovery platform designed to browse films, theaters, releases, and favorites with a cinematic interface, fast search, and a smooth login-driven user experience.",
     imageUrl: movieImg,
+    imageFallback:
+      "https://raw.githubusercontent.com/omar-hossam0/portfolio1/main/src/assets/img/movie.png",
     demoUrl: "https://quickshow.vercel.app",
     githubUrl: "#",
     technologies: ["React", "Next.js", "Tailwind CSS"],
@@ -121,6 +131,12 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
             alt={project.title}
             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
             loading="lazy"
+            onError={(e) => {
+              const el = e.currentTarget as HTMLImageElement;
+              if (project.imageFallback && el.src !== project.imageFallback) {
+                el.src = project.imageFallback;
+              }
+            }}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
 

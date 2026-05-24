@@ -72,6 +72,14 @@ export default function Skills() {
                   className="h-6 w-6"
                   loading="lazy"
                   decoding="async"
+                  onError={(e) => {
+                    const el = e.currentTarget as HTMLImageElement;
+                    if (skill.name === "AWS") {
+                      const fallback =
+                        "https://raw.githubusercontent.com/omar-hossam0/portfolio1/main/src/assets/img/aws.svg";
+                      if (el.src !== fallback) el.src = fallback;
+                    }
+                  }}
                 />
               </div>
               <span className="text-sm font-medium text-white/80 whitespace-nowrap">

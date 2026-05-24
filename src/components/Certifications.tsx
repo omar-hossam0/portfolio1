@@ -22,6 +22,8 @@ const sampleCertifications: Certification[] = [
     issuingOrganization: "ITIDA / NTI",
     issueDate: "2025-09",
     imageUrl: c1Img,
+    imageFallback:
+      "https://raw.githubusercontent.com/omar-hossam0/portfolio1/main/src/assets/img/c1.png",
     verificationUrl: "#",
     credentialId: "ITIDA-NTI-2025-01",
   },
@@ -31,6 +33,8 @@ const sampleCertifications: Certification[] = [
     issuingOrganization: "Sprints / Microsoft",
     issueDate: "2025-07",
     imageUrl: c2Img,
+    imageFallback:
+      "https://raw.githubusercontent.com/omar-hossam0/portfolio1/main/src/assets/img/c2.png",
     verificationUrl: "#",
     credentialId: "SPR-MSFT-2025-02",
   },
@@ -40,6 +44,8 @@ const sampleCertifications: Certification[] = [
     issuingOrganization: "NTI / Ministry of Communications",
     issueDate: "2025-06",
     imageUrl: c3Img,
+    imageFallback:
+      "https://raw.githubusercontent.com/omar-hossam0/portfolio1/main/src/assets/img/c3.png",
     verificationUrl: "#",
     credentialId: "AI-AMB-2025-03",
   },
@@ -72,6 +78,12 @@ function CertCard({
             alt={cert.title}
             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
             loading="lazy"
+            onError={(e) => {
+              const el = e.currentTarget as HTMLImageElement;
+              if ((cert as any).imageFallback && el.src !== (cert as any).imageFallback) {
+                el.src = (cert as any).imageFallback;
+              }
+            }}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
           <div className="absolute bottom-3 left-3">

@@ -134,6 +134,12 @@ export default function Hero() {
                   alt="Omar Hossam portrait"
                   className="w-full aspect-square rounded-xl object-cover transition-transform duration-700 group-hover:scale-105"
                   loading="eager"
+                  onError={(e) => {
+                    const el = e.currentTarget as HTMLImageElement;
+                    const fallback =
+                      "https://raw.githubusercontent.com/omar-hossam0/portfolio1/main/src/assets/img/omar.jpeg";
+                    if (el.src !== fallback) el.src = fallback;
+                  }}
                 />
               </div>
             </div>
