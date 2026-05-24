@@ -1,10 +1,10 @@
-import BackgroundOrbs from './components/BackgroundOrbs';
-import Navigation from './components/Navigation';
-import Hero from './components/Hero';
-import Skills from './components/Skills';
-import Projects from './components/Projects';
-import Certifications from './components/Certifications';
-import Contact from './components/Contact';
+import BackgroundOrbs from "./components/BackgroundOrbs";
+import Navigation from "./components/Navigation";
+import Hero from "./components/Hero";
+import Skills from "./components/Skills";
+import Projects from "./components/Projects";
+import Certifications from "./components/Certifications";
+import Contact from "./components/Contact";
 
 function App() {
   return (

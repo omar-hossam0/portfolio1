@@ -1,5 +1,5 @@
-import { ExternalLink, Github, ArrowUpRight, Star } from 'lucide-react';
-import { useScrollAnimation } from '../hooks/useScrollAnimation';
+import { ExternalLink, Github, ArrowUpRight, Star } from "lucide-react";
+import { useScrollAnimation } from "../hooks/useScrollAnimation";
 
 interface Project {
   id: string;
@@ -10,75 +10,83 @@ interface Project {
   githubUrl: string;
   technologies: string[];
   tags: string[];
-  status: 'live' | 'in-progress' | 'completed';
+  status: "live" | "in-progress" | "completed";
   featured: boolean;
 }
 
 const sampleProjects: Project[] = [
   {
-    id: 'elka2d',
-    title: 'elka2d',
+    id: "elka2d",
+    title: "elka2d",
     description:
-      'Elka2D is an engaging educational platform that brings history to life through well-organized courses, live teacher-led sessions, and an always-available AI assistant. The site emphasizes interactive learning, measurable student progress, and trusted, expert-reviewed content — serving thousands of learners with a range of specialized history courses and real-time support.',
+      "Elka2D is an engaging educational platform that brings history to life through well-organized courses, live teacher-led sessions, and an always-available AI assistant. The site emphasizes interactive learning, measurable student progress, and trusted, expert-reviewed content — serving thousands of learners with a range of specialized history courses and real-time support.",
     // Image located in project img folder (elk2d.png)
-    imageUrl: '/img/elk2d.png',
-    demoUrl: 'https://elka2d.cloud/',
-    githubUrl: '#',
-    technologies: ['React', 'Node.js', 'SQL'],
-    tags: ['Design', 'Web'],
-    status: 'live',
+    imageUrl: "/img/elk2d.png",
+    demoUrl: "https://elka2d.cloud/",
+    githubUrl: "#",
+    technologies: ["React", "Node.js", "SQL"],
+    tags: ["Design", "Web"],
+    status: "live",
     featured: true,
   },
   {
-    id: 'ocr-project-omega',
-    title: 'OCR Project Omega',
+    id: "ocr-project-omega",
+    title: "OCR Project Omega",
     description:
-      'AI-powered document management platform with OCR extraction, camera capture, searchable archives, and full tracking for files, locations, and access history.',
-    imageUrl: '/img/ocr.png',
-    demoUrl: 'https://ocr-project-omega.vercel.app',
-    githubUrl: '#',
-    technologies: ['Next.js', 'React', 'Tailwind CSS', 'Node.js', 'Express', 'MongoDB'],
-    tags: ['OCR', 'Document', 'AI'],
-    status: 'in-progress',
+      "AI-powered document management platform with OCR extraction, camera capture, searchable archives, and full tracking for files, locations, and access history.",
+    imageUrl: "/img/ocr.png",
+    demoUrl: "https://ocr-project-omega.vercel.app",
+    githubUrl: "#",
+    technologies: [
+      "Next.js",
+      "React",
+      "Tailwind CSS",
+      "Node.js",
+      "Express",
+      "MongoDB",
+    ],
+    tags: ["OCR", "Document", "AI"],
+    status: "in-progress",
     featured: false,
   },
   {
-    id: '3',
-    title: 'Smart Parking System Dashboard',
+    id: "3",
+    title: "Smart Parking System Dashboard",
     description:
-      'Real-time smart parking dashboard for monitoring four slots, controlling the gate, viewing live activity, and tracking parking duration and history through MQTT and ESP integration.',
-    imageUrl: '/img/parking (2).png',
-    demoUrl: 'https://smart-parking-1.vercel.app',
-    githubUrl: '#',
-    technologies: ['React', 'MQTT', 'ESP32', 'Node.js'],
-    tags: ['IoT', 'Dashboard', 'Real-time'],
-    status: 'live',
+      "Real-time smart parking dashboard for monitoring four slots, controlling the gate, viewing live activity, and tracking parking duration and history through MQTT and ESP integration.",
+    imageUrl: "/img/parking (2).png",
+    demoUrl: "https://smart-parking-1.vercel.app",
+    githubUrl: "#",
+    technologies: ["React", "MQTT", "ESP32", "Node.js"],
+    tags: ["IoT", "Dashboard", "Real-time"],
+    status: "live",
     featured: false,
   },
   {
-    id: '4',
-    title: 'Transit Tourism App',
+    id: "4",
+    title: "Transit Tourism App",
     description:
-      'A smart travel app for transit passengers that turns waiting time into short tourism experiences. It offers ground trips from Cairo International Airport, flying taxi tours, AI suggestions, maps, booking management, and digital payments for a smooth city-exploration journey.',
-    imageUrl: '/img/fly.jpeg',
-    demoUrl: 'https://drive.google.com/file/d/1NG_5e5TzZzc9Dnd0XlBbhgyMv9iaWkwY/view?usp=sharing',
-    githubUrl: '#',
-    technologies: ['Flutter', 'Dart', 'Firebase'],
-    tags: ['Travel', 'Transit', 'Booking'],
-    status: 'live',
+      "A smart travel app for transit passengers that turns waiting time into short tourism experiences. It offers ground trips from Cairo International Airport, flying taxi tours, AI suggestions, maps, booking management, and digital payments for a smooth city-exploration journey.",
+    imageUrl: "/img/fly.jpeg",
+    demoUrl:
+      "https://drive.google.com/file/d/1NG_5e5TzZzc9Dnd0XlBbhgyMv9iaWkwY/view?usp=sharing",
+    githubUrl: "#",
+    technologies: ["Flutter", "Dart", "Firebase"],
+    tags: ["Travel", "Transit", "Booking"],
+    status: "live",
     featured: false,
   },
   {
-    id: '5',
-    title: 'QuickShow',
+    id: "5",
+    title: "QuickShow",
     description:
-      'A modern movie discovery platform designed to browse films, theaters, releases, and favorites with a cinematic interface, fast search, and a smooth login-driven user experience.',
-    imageUrl: '/img/movie.png',
-    demoUrl: 'https://quickshow.vercel.app',
-    githubUrl: '#',
-    technologies: ['React', 'Next.js', 'Tailwind CSS'],
-    tags: ['Movies', 'Streaming', 'UI'],
-    status: 'live',
+      "A modern movie discovery platform designed to browse films, theaters, releases, and favorites with a cinematic interface, fast search, and a smooth login-driven user experience.",
+    imageUrl: "/img/movie.png",
+    demoUrl: "https://quickshow.vercel.app",
+    githubUrl: "#",
+    technologies: ["React", "Next.js", "Tailwind CSS"],
+    tags: ["Movies", "Streaming", "UI"],
+    status: "live",
     featured: false,
   },
 ];
@@ -87,16 +95,16 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
   const { ref, isVisible } = useScrollAnimation(0.1);
 
   const statusColors: Record<string, string> = {
-    live: 'bg-green-500/20 text-green-400 border-green-500/30',
-    'in-progress': 'bg-amber-500/20 text-amber-400 border-amber-500/30',
-    completed: 'bg-white/10 text-white/60 border-white/20',
+    live: "bg-green-500/20 text-green-400 border-green-500/30",
+    "in-progress": "bg-amber-500/20 text-amber-400 border-amber-500/30",
+    completed: "bg-white/10 text-white/60 border-white/20",
   };
 
   return (
     <div
       ref={ref}
       className={`group transition-all duration-700 ${
-        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
+        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
       }`}
       style={{ transitionDelay: `${index * 80}ms` }}
     >
@@ -115,7 +123,10 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
           {project.featured && (
             <div className="absolute top-3 right-3">
               <span className="glass-accent rounded-full px-3 py-1 text-xs font-semibold text-accent-light flex items-center gap-1.5">
-                <Star size={12} className="text-accent-light fill-accent-light" />
+                <Star
+                  size={12}
+                  className="text-accent-light fill-accent-light"
+                />
                 Featured
               </span>
             </div>
@@ -130,16 +141,17 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
             >
               <span
                 className={`w-1.5 h-1.5 rounded-full ${
-                  project.status === 'live'
-                    ? 'bg-green-400 animate-glow-pulse'
-                    : project.status === 'in-progress'
-                    ? 'bg-amber-400'
-                    : 'bg-white/40'
+                  project.status === "live"
+                    ? "bg-green-400 animate-glow-pulse"
+                    : project.status === "in-progress"
+                      ? "bg-amber-400"
+                      : "bg-white/40"
                 }`}
               />
-              {project.status === 'in-progress'
-                ? 'In Progress'
-                : project.status.charAt(0).toUpperCase() + project.status.slice(1)}
+              {project.status === "in-progress"
+                ? "In Progress"
+                : project.status.charAt(0).toUpperCase() +
+                  project.status.slice(1)}
             </span>
           </div>
 
@@ -213,14 +225,16 @@ export default function Projects() {
         <div
           ref={titleRef}
           className={`text-center mb-16 transition-all duration-700 ${
-            titleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            titleVisible
+              ? "opacity-100 translate-y-0"
+              : "opacity-0 translate-y-8"
           }`}
         >
           <span className="glass-accent rounded-full px-4 py-1.5 text-xs font-semibold text-accent-light uppercase tracking-wider inline-block mb-4">
             Portfolio
           </span>
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            Featured{' '}
+            Featured{" "}
             <span className="text-glow bg-gradient-to-r from-accent-light to-blue-300 bg-clip-text text-transparent">
               Projects
             </span>

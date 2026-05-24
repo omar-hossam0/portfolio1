@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef } from "react";
 
 interface Star {
   x: number;
@@ -18,7 +18,7 @@ export default function BackgroundOrbs() {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
     // Set canvas size
@@ -27,7 +27,7 @@ export default function BackgroundOrbs() {
       canvas.height = window.innerHeight;
     };
     resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
+    window.addEventListener("resize", resizeCanvas);
 
     // Create stars with depth (z-index)
     const stars: Star[] = [];
@@ -58,9 +58,9 @@ export default function BackgroundOrbs() {
 
       // Clear canvas with gradient background
       const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
-      gradient.addColorStop(0, '#000000');
-      gradient.addColorStop(0.5, '#0a0a1a');
-      gradient.addColorStop(1, '#000000');
+      gradient.addColorStop(0, "#000000");
+      gradient.addColorStop(0.5, "#0a0a1a");
+      gradient.addColorStop(1, "#000000");
       ctx.fillStyle = gradient;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -89,7 +89,7 @@ export default function BackgroundOrbs() {
 
         // Draw star with glow effect
         const alpha = star.opacity * star.z;
-        
+
         // Glow
         ctx.fillStyle = `rgba(200, 220, 255, ${alpha * 0.3})`;
         ctx.beginPath();
@@ -115,7 +115,7 @@ export default function BackgroundOrbs() {
     animate();
 
     return () => {
-      window.removeEventListener('resize', resizeCanvas);
+      window.removeEventListener("resize", resizeCanvas);
       cancelAnimationFrame(animationId);
     };
   }, []);

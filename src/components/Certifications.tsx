@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import { Award, ExternalLink, Calendar, Building2, Shield } from 'lucide-react';
-import { useScrollAnimation } from '../hooks/useScrollAnimation';
+import { useState } from "react";
+import { Award, ExternalLink, Calendar, Building2, Shield } from "lucide-react";
+import { useScrollAnimation } from "../hooks/useScrollAnimation";
 
 interface Certification {
   id: string;
@@ -14,42 +14,50 @@ interface Certification {
 
 const sampleCertifications: Certification[] = [
   {
-    id: '1',
-    title: 'MEAN Stack Web Development',
-    issuingOrganization: 'ITIDA / NTI',
-    issueDate: '2025-09',
-    imageUrl: '/img/c1.png',
-    verificationUrl: '#',
-    credentialId: 'ITIDA-NTI-2025-01',
+    id: "1",
+    title: "MEAN Stack Web Development",
+    issuingOrganization: "ITIDA / NTI",
+    issueDate: "2025-09",
+    imageUrl: "/img/c1.png",
+    verificationUrl: "#",
+    credentialId: "ITIDA-NTI-2025-01",
   },
   {
-    id: '2',
-    title: 'Sprints x Microsoft Summer Camp - Web Development',
-    issuingOrganization: 'Sprints / Microsoft',
-    issueDate: '2025-07',
-    imageUrl: '/img/c2.png',
-    verificationUrl: '#',
-    credentialId: 'SPR-MSFT-2025-02',
+    id: "2",
+    title: "Sprints x Microsoft Summer Camp - Web Development",
+    issuingOrganization: "Sprints / Microsoft",
+    issueDate: "2025-07",
+    imageUrl: "/img/c2.png",
+    verificationUrl: "#",
+    credentialId: "SPR-MSFT-2025-02",
   },
   {
-    id: '3',
-    title: 'Artificial Intelligence Ambassadors Program',
-    issuingOrganization: 'NTI / Ministry of Communications',
-    issueDate: '2025-06',
-    imageUrl: '/img/c3.png',
-    verificationUrl: '#',
-    credentialId: 'AI-AMB-2025-03',
+    id: "3",
+    title: "Artificial Intelligence Ambassadors Program",
+    issuingOrganization: "NTI / Ministry of Communications",
+    issueDate: "2025-06",
+    imageUrl: "/img/c3.png",
+    verificationUrl: "#",
+    credentialId: "AI-AMB-2025-03",
   },
 ];
 
-function CertCard({ cert, index, onZoom }: { cert: Certification; index: number; onZoom: (imageUrl: string) => void }) {
+function CertCard({
+  cert,
+  index,
+  onZoom,
+}: {
+  cert: Certification;
+  index: number;
+  onZoom: (imageUrl: string) => void;
+}) {
   const { ref, isVisible } = useScrollAnimation(0.1);
 
   return (
     <div
       ref={ref}
       className={`group transition-all duration-700 ${
-        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
+        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
       }`}
       style={{ transitionDelay: `${index * 80}ms` }}
     >
@@ -117,7 +125,7 @@ export default function Certifications() {
         className="absolute inset-0 opacity-[0.03] pointer-events-none"
         style={{
           background:
-            'radial-gradient(ellipse at 30% 50%, rgba(59,130,246,0.15) 0%, transparent 60%)',
+            "radial-gradient(ellipse at 30% 50%, rgba(59,130,246,0.15) 0%, transparent 60%)",
         }}
       />
 
@@ -126,27 +134,35 @@ export default function Certifications() {
         <div
           ref={titleRef}
           className={`text-center mb-16 transition-all duration-700 ${
-            titleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            titleVisible
+              ? "opacity-100 translate-y-0"
+              : "opacity-0 translate-y-8"
           }`}
         >
           <span className="glass-accent rounded-full px-4 py-1.5 text-xs font-semibold text-accent-light uppercase tracking-wider inline-block mb-4">
             Credentials
           </span>
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            Professional{' '}
+            Professional{" "}
             <span className="text-glow bg-gradient-to-r from-accent-light to-blue-300 bg-clip-text text-transparent">
               Certifications
             </span>
           </h2>
           <p className="text-white/40 max-w-lg mx-auto">
-            Validated expertise across cloud platforms, development frameworks, and infrastructure technologies.
+            Validated expertise across cloud platforms, development frameworks,
+            and infrastructure technologies.
           </p>
         </div>
 
         {/* Certifications grid */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {sampleCertifications.map((cert, i) => (
-            <CertCard key={cert.id} cert={cert} index={i} onZoom={setActiveImage} />
+            <CertCard
+              key={cert.id}
+              cert={cert}
+              index={i}
+              onZoom={setActiveImage}
+            />
           ))}
         </div>
       </div>
@@ -167,7 +183,11 @@ export default function Certifications() {
             >
               Close
             </button>
-            <img src={activeImage} alt="Certificate preview" className="block max-h-[90vh] w-full object-contain" />
+            <img
+              src={activeImage}
+              alt="Certificate preview"
+              className="block max-h-[90vh] w-full object-contain"
+            />
           </div>
         </div>
       )}

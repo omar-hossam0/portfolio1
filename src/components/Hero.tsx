@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
 function TextAnimator({ text, speed = 40 }: { text: string; speed?: number }) {
-  const [typed, setTyped] = useState('');
+  const [typed, setTyped] = useState("");
 
   useEffect(() => {
     let idx = 0;
@@ -30,14 +30,14 @@ import {
   MapPin,
   Briefcase,
   Sparkles,
-} from 'lucide-react';
-import { useScrollAnimation } from '../hooks/useScrollAnimation';
+} from "lucide-react";
+import { useScrollAnimation } from "../hooks/useScrollAnimation";
 
-const phrases = ['omar hossam', 'Full-Stack Developer', 'Mobile Developer'];
+const phrases = ["omar hossam", "Full-Stack Developer", "Mobile Developer"];
 
 export default function Hero() {
   const { ref, isVisible } = useScrollAnimation(0.1);
-  const [typedText, setTypedText] = useState('');
+  const [typedText, setTypedText] = useState("");
   const [phraseIndex, setPhraseIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
 
@@ -47,16 +47,19 @@ export default function Hero() {
 
     if (!isDeleting && typedText === fullText) {
       timeoutId = window.setTimeout(() => setIsDeleting(true), 900);
-    } else if (isDeleting && typedText === '') {
+    } else if (isDeleting && typedText === "") {
       timeoutId = window.setTimeout(() => {
         setIsDeleting(false);
         setPhraseIndex((prev) => (prev + 1) % phrases.length);
       }, 300);
     } else {
       const nextLength = typedText.length + (isDeleting ? -1 : 1);
-      timeoutId = window.setTimeout(() => {
-        setTypedText(fullText.slice(0, nextLength));
-      }, isDeleting ? 45 : 90);
+      timeoutId = window.setTimeout(
+        () => {
+          setTypedText(fullText.slice(0, nextLength));
+        },
+        isDeleting ? 45 : 90,
+      );
     }
 
     return () => {
@@ -76,7 +79,7 @@ export default function Hero() {
         className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[800px] rounded-full opacity-20 pointer-events-none"
         style={{
           background:
-            'radial-gradient(circle, rgba(59,130,246,0.2) 0%, transparent 60%)',
+            "radial-gradient(circle, rgba(59,130,246,0.2) 0%, transparent 60%)",
         }}
       />
 
@@ -84,7 +87,7 @@ export default function Hero() {
         {/* ── Top Greeting Area ────────────────────── */}
         <div
           className={`text-center mb-16 transition-all duration-700 ${
-            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
           }`}
         >
           <div className="glass-accent rounded-full px-5 py-2 mb-6 inline-flex items-center gap-2 animate-fade-in">
@@ -105,20 +108,23 @@ export default function Hero() {
             />
           </h1>
           <p className="text-base text-white/50 leading-relaxed max-w-2xl mx-auto">
-            I craft elegant digital experiences with modern technologies. Passionate
-            about building performant, accessible, and beautifully designed
-            applications that make a real impact.
+            I craft elegant digital experiences with modern technologies.
+            Passionate about building performant, accessible, and beautifully
+            designed applications that make a real impact.
           </p>
         </div>
 
         {/* ── Three-Stack Card Grid ────────────────── */}
         <div
           className={`hero-grid transition-all duration-700 delay-200 ${
-            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
           }`}
         >
           {/* Stack 1 — Profile Card */}
-          <div className="glass-strong rounded-2xl p-6 glass-reflection card-stretch card-ambient animate-float-subtle" style={{ transitionDelay: '120ms' }}>
+          <div
+            className="glass-strong rounded-2xl p-6 glass-reflection card-stretch card-ambient animate-float-subtle"
+            style={{ transitionDelay: "120ms" }}
+          >
             <div className="relative group mb-6">
               <div className="absolute -inset-2 rounded-2xl bg-gradient-to-br from-accent/25 via-transparent to-accent/15 blur-lg opacity-50 group-hover:opacity-80 transition-opacity duration-500" />
               <div className="relative gradient-border rounded-2xl p-1 overflow-hidden">
@@ -134,20 +140,24 @@ export default function Hero() {
             {/* Status */}
             <div className="flex items-center gap-2 mb-4">
               <span className="w-2 h-2 rounded-full bg-green-400 animate-glow-pulse" />
-              <span className="text-sm font-medium text-accent-light">Available for work</span>
+              <span className="text-sm font-medium text-accent-light">
+                Available for work
+              </span>
             </div>
 
             {/* Short roles line (Mobile + Full-Stack) */}
             <div className="mb-4">
-              <span className="inline-block text-sm text-white/80">Mobile &amp; Full-Stack Web Developer</span>
+              <span className="inline-block text-sm text-white/80">
+                Mobile &amp; Full-Stack Web Developer
+              </span>
             </div>
 
             {/* Quick stats — arranged horizontally and wrap on small screens */}
             <div className="flex flex-wrap items-center gap-3 text-sm text-white/60 mt-auto">
               {[
-                { icon: MapPin, text: '19 marwa street' },
-                { icon: Briefcase, text: 'Full-Stack Developer' },
-                { icon: Sparkles, text: 'Available for new projects' },
+                { icon: MapPin, text: "19 marwa street" },
+                { icon: Briefcase, text: "Full-Stack Developer" },
+                { icon: Sparkles, text: "Available for new projects" },
               ].map(({ icon: Icon, text }) => (
                 <div key={text} className="flex items-center gap-3">
                   <div className="glass-accent p-2 rounded-lg">
@@ -160,9 +170,11 @@ export default function Hero() {
           </div>
 
           {/* Stack 2 — Actions */}
-          <div className="card-stretch" style={{ transitionDelay: '220ms' }}>
+          <div className="card-stretch" style={{ transitionDelay: "220ms" }}>
             <div className="glass-strong rounded-2xl p-6 glass-reflection card-panel card-ambient">
-              <h3 className="text-lg font-semibold text-white mb-4">Quick Actions</h3>
+              <h3 className="text-lg font-semibold text-white mb-4">
+                Quick Actions
+              </h3>
               <div className="space-y-3">
                 <button className="glass-btn-accent w-full px-5 py-3 rounded-xl font-medium text-white flex items-center justify-center gap-2 group">
                   <Download size={18} className="group-hover:animate-bounce" />
@@ -170,16 +182,23 @@ export default function Hero() {
                 </button>
                 <button
                   onClick={() =>
-                    document.querySelector('#projects')?.scrollIntoView({ behavior: 'smooth' })
+                    document
+                      .querySelector("#projects")
+                      ?.scrollIntoView({ behavior: "smooth" })
                   }
                   className="glass-btn w-full px-5 py-3 rounded-xl font-medium text-white flex items-center justify-center gap-2 group"
                 >
                   View Projects
-                  <ExternalLink size={16} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                  <ExternalLink
+                    size={16}
+                    className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"
+                  />
                 </button>
                 <button
                   onClick={() =>
-                    document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })
+                    document
+                      .querySelector("#contact")
+                      ?.scrollIntoView({ behavior: "smooth" })
                   }
                   className="glass-btn w-full px-5 py-3 rounded-xl font-medium text-white/80 hover:text-white flex items-center justify-center gap-2"
                 >
@@ -189,21 +208,34 @@ export default function Hero() {
             </div>
 
             <div className="mt-4 glass rounded-2xl p-5 card-panel card-ambient">
-              <h4 className="text-sm font-semibold text-accent-light mb-3">Featured</h4>
-              <p className="text-sm text-white/60">Quick highlight or featured project summary can sit here. It keeps the center column feeling substantial and connected to actions.</p>
+              <h4 className="text-sm font-semibold text-accent-light mb-3">
+                Featured
+              </h4>
+              <p className="text-sm text-white/60">
+                Quick highlight or featured project summary can sit here. It
+                keeps the center column feeling substantial and connected to
+                actions.
+              </p>
             </div>
           </div>
 
           {/* Stack 3 — Quote Card */}
-          <div className="glass-strong rounded-2xl p-6 md:p-8 glass-reflection card-stretch card-ambient" style={{ transitionDelay: '320ms' }}>
+          <div
+            className="glass-strong rounded-2xl p-6 md:p-8 glass-reflection card-stretch card-ambient"
+            style={{ transitionDelay: "320ms" }}
+          >
             <div>
               <div className="w-1 h-8 rounded-full bg-gradient-to-b from-accent-light to-accent-dark mb-6" />
-              <h3 className="text-xl md:text-2xl font-semibold text-white/80 leading-relaxed mb-4">Design Philosophy</h3>
+              <h3 className="text-xl md:text-2xl font-semibold text-white/80 leading-relaxed mb-4">
+                Design Philosophy
+              </h3>
             </div>
 
             <div className="mt-6 pt-4 card-panel">
               <TextAnimator
-                text={"I design and build high-quality mobile and web applications focused on performance, usability, and polished visuals. From prototyping to production, I prioritize clean, maintainable code, accessibility, and fast load times. I collaborate closely with designers and teams to turn ideas into reliable, scalable products that delight users and solve real problems."}
+                text={
+                  "I design and build high-quality mobile and web applications focused on performance, usability, and polished visuals. From prototyping to production, I prioritize clean, maintainable code, accessibility, and fast load times. I collaborate closely with designers and teams to turn ideas into reliable, scalable products that delight users and solve real problems."
+                }
                 speed={18}
               />
             </div>
