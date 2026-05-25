@@ -23,7 +23,7 @@ function TextAnimator({ text, speed = 40 }: { text: string; speed?: number }) {
     </p>
   );
 }
-import omarImg from "../assets/img/omar.jpeg";
+import moraImg from "../../img/mora.jpeg";
 import {
   ArrowDown,
   Download,
@@ -115,29 +115,28 @@ export default function Hero() {
           </p>
         </div>
 
-        {/* ── Three-Stack Card Grid ────────────────── */}
+        {/* ── Two-Column Layout ────────────────── */}
         <div
-          className={`hero-grid transition-all duration-700 delay-200 ${
+          className={`grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch max-w-5xl mx-auto transition-all duration-700 delay-200 ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
           }`}
         >
-          {/* Stack 1 — Profile Card */}
+          {/* Left Column — Profile Card */}
           <div
-            className="glass-strong rounded-2xl p-6 glass-reflection card-stretch card-ambient animate-float-subtle"
+            className="glass-strong rounded-2xl p-6 glass-reflection card-stretch card-ambient animate-float-subtle w-full max-w-md mx-auto"
             style={{ transitionDelay: "120ms" }}
           >
             <div className="relative group mb-6">
               <div className="absolute -inset-2 rounded-2xl bg-gradient-to-br from-accent/25 via-transparent to-accent/15 blur-lg opacity-50 group-hover:opacity-80 transition-opacity duration-500" />
               <div className="relative gradient-border rounded-2xl p-1 overflow-hidden">
                 <img
-                  src={omarImg}
+                  src={moraImg}
                   alt="Omar Hossam portrait"
                   className="w-full aspect-square rounded-xl object-cover transition-transform duration-700 group-hover:scale-105"
                   loading="eager"
                   onError={(e) => {
                     const el = e.currentTarget as HTMLImageElement;
-                    const fallback =
-                      "https://raw.githubusercontent.com/omar-hossam0/portfolio1/main/src/assets/img/omar.jpeg";
+                    const fallback = "/img/mora.jpeg";
                     if (el.src !== fallback) el.src = fallback;
                   }}
                 />
@@ -176,75 +175,67 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* Stack 2 — Actions */}
-          <div className="card-stretch" style={{ transitionDelay: "220ms" }}>
-            <div className="glass-strong rounded-2xl p-6 glass-reflection card-panel card-ambient">
-              <h3 className="text-lg font-semibold text-white mb-4">
-                Quick Actions
-              </h3>
-              <div className="space-y-3">
-                <button className="glass-btn-accent w-full px-5 py-3 rounded-xl font-medium text-white flex items-center justify-center gap-2 group">
-                  <Download size={18} className="group-hover:animate-bounce" />
-                  Download CV
-                </button>
-                <button
-                  onClick={() =>
-                    document
-                      .querySelector("#projects")
-                      ?.scrollIntoView({ behavior: "smooth" })
-                  }
-                  className="glass-btn w-full px-5 py-3 rounded-xl font-medium text-white flex items-center justify-center gap-2 group"
-                >
-                  View Projects
-                  <ExternalLink
-                    size={16}
-                    className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"
-                  />
-                </button>
-                <button
-                  onClick={() =>
-                    document
-                      .querySelector("#contact")
-                      ?.scrollIntoView({ behavior: "smooth" })
-                  }
-                  className="glass-btn w-full px-5 py-3 rounded-xl font-medium text-white/80 hover:text-white flex items-center justify-center gap-2"
-                >
-                  Contact Me
-                </button>
-              </div>
-            </div>
-
-            <div className="mt-4 glass rounded-2xl p-5 card-panel card-ambient">
-              <h4 className="text-sm font-semibold text-accent-light mb-3">
-                Featured
-              </h4>
-              <p className="text-sm text-white/60">
-                Quick highlight or featured project summary can sit here. It
-                keeps the center column feeling substantial and connected to
-                actions.
-              </p>
-            </div>
-          </div>
-
-          {/* Stack 3 — Quote Card */}
+          {/* Right Column — About Me */}
           <div
-            className="glass-strong rounded-2xl p-6 md:p-8 glass-reflection card-stretch card-ambient"
-            style={{ transitionDelay: "320ms" }}
+            className="card-stretch flex flex-col justify-center"
+            style={{ transitionDelay: "220ms" }}
           >
-            <div>
-              <div className="w-1 h-8 rounded-full bg-gradient-to-b from-accent-light to-accent-dark mb-6" />
-              <h3 className="text-xl md:text-2xl font-semibold text-white/80 leading-relaxed mb-4">
-                Design Philosophy
-              </h3>
-            </div>
+            <div className="glass-strong rounded-2xl p-6 md:p-10 glass-reflection card-panel card-ambient relative overflow-hidden flex-1 flex flex-col justify-center">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-accent/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+              <div className="absolute bottom-0 left-0 w-32 h-32 bg-blue-500/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
 
-            <div className="mt-6 pt-4 card-panel">
-              <TextAnimator
-                text={
-                  "I design and build high-quality mobile and web applications focused on performance, usability, and polished visuals. From prototyping to production, I prioritize clean, maintainable code, accessibility, and fast load times. I collaborate closely with designers and teams to turn ideas into reliable, scalable products that delight users and solve real problems."
-                }
-                speed={18}
-              />
+              <div className="relative z-10">
+                <div className="w-12 h-1.5 rounded-full bg-gradient-to-r from-accent-light to-blue-400 mb-6" />
+                <h3 className="text-2xl md:text-3xl font-bold text-white mb-6">
+                  Why hire me for your{" "}
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent-light to-blue-300">
+                    Project?
+                  </span>
+                </h3>
+
+                <div className="space-y-4 text-white/70 leading-relaxed text-sm md:text-base">
+                  <p>
+                    I am Omar Hossam, a dedicated Full-Stack and Mobile
+                    Developer with a passion for building robust, scalable
+                    applications. With strong foundations in modern web
+                    technologies and cross-platform mobile development, I bring
+                    ideas to life—from the database architecture up to the user
+                    interface.
+                  </p>
+                  <p>
+                    I focus on performance, clean aesthetics, and maintainable
+                    code. Over the years, I've tackled complex challenges, built
+                    AI-integrated tools, and designed intuitive user
+                    experiences. My goal is to add tangible value to every
+                    project I take on, ensuring long-term success and user
+                    satisfaction.
+                  </p>
+                </div>
+
+                <div className="mt-8 flex gap-4">
+                  <button className="glass-btn-accent px-6 py-3 rounded-xl font-medium text-white flex items-center justify-center gap-2 group w-max">
+                    <Download
+                      size={18}
+                      className="group-hover:animate-bounce"
+                    />
+                    Download CV
+                  </button>
+                  <button
+                    onClick={() =>
+                      document
+                        .querySelector("#projects")
+                        ?.scrollIntoView({ behavior: "smooth" })
+                    }
+                    className="glass-btn px-6 py-3 rounded-xl font-medium text-white flex items-center justify-center gap-2 group w-max"
+                  >
+                    View Projects
+                    <ExternalLink
+                      size={16}
+                      className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"
+                    />
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
