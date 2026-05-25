@@ -1,12 +1,12 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, type RefObject } from "react";
 
 interface UseScrollAnimation {
-  ref: React.RefObject<HTMLDivElement | null>;
+  ref: RefObject<HTMLDivElement>;
   isVisible: boolean;
 }
 
 export function useScrollAnimation(threshold = 0.1): UseScrollAnimation {
-  const ref = useRef<HTMLDivElement | null>(null);
+  const ref = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -19,7 +19,7 @@ export function useScrollAnimation(threshold = 0.1): UseScrollAnimation {
           setIsVisible(true);
         }
       },
-      { threshold }
+      { threshold },
     );
 
     observer.observe(element);

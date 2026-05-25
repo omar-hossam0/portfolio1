@@ -162,7 +162,7 @@ export default function Hero() {
             {/* Quick stats — arranged horizontally and wrap on small screens */}
             <div className="flex flex-wrap items-center gap-3 text-sm text-white/60 mt-auto">
               {[
-                { icon: MapPin, text: "19 marwa street" },
+                { icon: MapPin, text: "portsaid" },
                 { icon: Briefcase, text: "Full-Stack Developer" },
                 { icon: Sparkles, text: "Available for new projects" },
               ].map(({ icon: Icon, text }) => (

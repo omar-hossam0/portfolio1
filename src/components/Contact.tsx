@@ -3,14 +3,11 @@ import {
   Mail,
   Phone,
   MapPin,
-  Clock,
   Send,
   CheckCircle,
   Linkedin,
   Github,
-  Twitter,
   Facebook,
-  Instagram,
 } from "lucide-react";
 import { useScrollAnimation } from "../hooks/useScrollAnimation";
 
@@ -27,7 +24,7 @@ const contactInfo = [
     value: "01555888126",
     href: "tel:01555888126",
   },
-  { icon: MapPin, label: "Location", value: "19 marwa street", href: "#" },
+  { icon: MapPin, label: "Location", value: "portsaid", href: "#" },
 ];
 
 const socialLinks = [
