@@ -1,14 +1,13 @@
 import { useEffect, useRef } from "react";
 
-interface Star {
+interface Orb {
   x: number;
   y: number;
-  z: number;
   radius: number;
   opacity: number;
-  opacityVelocity: number;
   vx: number;
   vy: number;
+  color: string;
 }
 
 export default function BackgroundOrbs() {
@@ -29,84 +28,60 @@ export default function BackgroundOrbs() {
     resizeCanvas();
     window.addEventListener("resize", resizeCanvas);
 
-    // Create stars with depth (z-index)
-    const stars: Star[] = [];
-    const starCount = 300;
+    const orbs: Orb[] = [];
+    const orbColors = [
+      "rgba(163, 86, 42, 0.25)",
+      "rgba(125, 61, 28, 0.22)",
+      "rgba(217, 162, 122, 0.25)",
+    ];
+    const orbCount = 10;
 
-    for (let i = 0; i < starCount; i++) {
-      const z = Math.random();
-      stars.push({
+    for (let i = 0; i < orbCount; i++) {
+      orbs.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
-        z,
-        radius: z * 2,
-        opacity: Math.random() * 0.7 + 0.3,
-        opacityVelocity: (Math.random() - 0.5) * 0.03,
-        vx: (Math.random() - 0.5) * 0.3 * z,
-        vy: (Math.random() - 0.5) * 0.3 * z,
+        radius: 180 + Math.random() * 260,
+        opacity: 0.25 + Math.random() * 0.2,
+        vx: (Math.random() - 0.5) * 0.08,
+        vy: (Math.random() - 0.5) * 0.08,
+        color: orbColors[i % orbColors.length],
       });
     }
 
-    // Sort stars by depth (draw furthest first)
-    stars.sort((a, b) => a.z - b.z);
-
     let animationId: number;
-    let time = 0;
-
     const animate = () => {
-      time++;
-
-      // Clear canvas with gradient background
       const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
-      gradient.addColorStop(0, "#000000");
-      gradient.addColorStop(0.5, "#0a0a1a");
-      gradient.addColorStop(1, "#000000");
+      gradient.addColorStop(0, "#f7efe4");
+      gradient.addColorStop(0.5, "#f2e6d7");
+      gradient.addColorStop(1, "#f7efe4");
       ctx.fillStyle = gradient;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      // Draw and update stars
-      stars.forEach((star) => {
-        // Update opacity with smooth twinkling
-        star.opacity += star.opacityVelocity;
-        if (star.opacity > 1) {
-          star.opacity = 1;
-          star.opacityVelocity *= -1;
-        }
-        if (star.opacity < 0.2) {
-          star.opacity = 0.2;
-          star.opacityVelocity *= -1;
-        }
+      orbs.forEach((orb) => {
+        orb.x += orb.vx;
+        orb.y += orb.vy;
 
-        // Subtle movement
-        star.x += star.vx;
-        star.y += star.vy;
+        if (orb.x < -orb.radius) orb.x = canvas.width + orb.radius;
+        if (orb.x > canvas.width + orb.radius) orb.x = -orb.radius;
+        if (orb.y < -orb.radius) orb.y = canvas.height + orb.radius;
+        if (orb.y > canvas.height + orb.radius) orb.y = -orb.radius;
 
-        // Wrap around screen
-        if (star.x < 0) star.x = canvas.width;
-        if (star.x > canvas.width) star.x = 0;
-        if (star.y < 0) star.y = canvas.height;
-        if (star.y > canvas.height) star.y = 0;
-
-        // Draw star with glow effect
-        const alpha = star.opacity * star.z;
-
-        // Glow
-        ctx.fillStyle = `rgba(200, 220, 255, ${alpha * 0.3})`;
+        const glow = ctx.createRadialGradient(
+          orb.x,
+          orb.y,
+          0,
+          orb.x,
+          orb.y,
+          orb.radius,
+        );
+        glow.addColorStop(0, orb.color);
+        glow.addColorStop(1, "rgba(255, 255, 255, 0)");
+        ctx.globalAlpha = orb.opacity;
+        ctx.fillStyle = glow;
         ctx.beginPath();
-        ctx.arc(star.x, star.y, star.radius * 3, 0, Math.PI * 2);
+        ctx.arc(orb.x, orb.y, orb.radius, 0, Math.PI * 2);
         ctx.fill();
-
-        // Star core
-        ctx.fillStyle = `rgba(255, 255, 255, ${alpha})`;
-        ctx.beginPath();
-        ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
-        ctx.fill();
-
-        // Brightest center
-        ctx.fillStyle = `rgba(255, 255, 255, ${alpha * 0.8})`;
-        ctx.beginPath();
-        ctx.arc(star.x, star.y, star.radius * 0.5, 0, Math.PI * 2);
-        ctx.fill();
+        ctx.globalAlpha = 1;
       });
 
       animationId = requestAnimationFrame(animate);

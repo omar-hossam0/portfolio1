@@ -19,7 +19,12 @@ export default {
         },
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+        heading: ['"Instrument Serif"', 'serif'],
+        body: ['Barlow', 'sans-serif'],
+        sans: ['Barlow', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+      },
+      borderRadius: {
+        DEFAULT: "9999px",
       },
       backdropBlur: {
         xs: '2px',

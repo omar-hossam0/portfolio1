@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import type { User, Session } from '@supabase/supabase-js';
+import type { AuthChangeEvent, User, Session } from '@supabase/supabase-js';
 import { supabase } from '../lib/supabase';
 
 export function useAuth() {
@@ -15,19 +15,20 @@ export function useAuth() {
       try {
         const resp = await supabase.auth.getSession();
         if (!mounted) return;
-        const sess = (resp as any)?.data?.session ?? null;
+        const sess = resp.data.session ?? null;
         setSession(sess);
         setUser(sess?.user ?? null);
       } catch (err) {
-        // Log but don't let auth errors crash the app
-        // eslint-disable-next-line no-console
         console.warn('useAuth: getSession failed', err);
       } finally {
         if (mounted) setLoading(false);
       }
 
       try {
-        const { data } = supabase.auth.onAuthStateChange((_event, sess) => {
+        const { data } = supabase.auth.onAuthStateChange((
+          _event: AuthChangeEvent,
+          sess: Session | null,
+        ) => {
           if (!mounted) return;
           setSession(sess as Session | null);
           setUser((sess as Session | null)?.user ?? null);
@@ -35,7 +36,6 @@ export function useAuth() {
 
         unsubscribeFn = () => data?.subscription?.unsubscribe();
       } catch (err) {
-        // eslint-disable-next-line no-console
         console.warn('useAuth: onAuthStateChange failed', err);
       }
     })();
@@ -57,7 +57,6 @@ export function useAuth() {
         options: { redirectTo: window.location.origin },
       });
     } catch (err) {
-      // eslint-disable-next-line no-console
       console.warn('useAuth: signInWithGoogle failed', err);
     }
   };
@@ -66,7 +65,6 @@ export function useAuth() {
     try {
       await supabase.auth.signOut();
     } catch (err) {
-      // eslint-disable-next-line no-console
       console.warn('useAuth: signOut failed', err);
     }
     setUser(null);

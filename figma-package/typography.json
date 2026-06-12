@@ -1,0 +1,10 @@
+{
+  "font-serif": "Cormorant Garamond, serif",
+  "font-sans": "Manrope, sans-serif",
+  "scale": {
+    "h1": "text-4xl (≈36px) to text-6xl (≈56px)",
+    "h2": "text-2xl (≈24px)",
+    "body": "text-base (≈16px)",
+    "small": "text-sm (≈14px)"
+  }
+}

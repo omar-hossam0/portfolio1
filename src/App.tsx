@@ -1,5 +1,5 @@
-import BackgroundOrbs from "./components/BackgroundOrbs";
 import Navigation from "./components/Navigation";
+import StarField from "./components/StarField";
 import Hero from "./components/Hero";
 import Skills from "./components/Skills";
 import Projects from "./components/Projects";
@@ -8,8 +8,8 @@ import Contact from "./components/Contact";
 
 function App() {
   return (
-    <div className="relative min-h-screen bg-black text-white overflow-hidden">
-      <BackgroundOrbs />
+    <div className="relative min-h-screen overflow-hidden bg-black font-body text-white">
+      <StarField />
       <Navigation />
       <main className="relative z-10">
         <Hero />

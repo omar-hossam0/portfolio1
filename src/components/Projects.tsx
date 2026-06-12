@@ -1,4 +1,4 @@
-import { ExternalLink, Github, ArrowUpRight, Star } from "lucide-react";
+import { ExternalLink, ArrowUpRight, Star } from "lucide-react";
 import elk2dImg from "../assets/img/elk2d.png";
 import ocrImg from "../assets/img/ocr.png";
 import parkingImg from "../assets/img/parking-2.png";
@@ -6,11 +6,14 @@ import flyImg from "../assets/img/fly.jpeg";
 import movieImg from "../assets/img/movie.png";
 import { useScrollAnimation } from "../hooks/useScrollAnimation";
 
+const ELKA2D_URL = "https://elka2d.cloud/";
+
 interface Project {
   id: string;
   title: string;
   description: string;
   imageUrl: string;
+  imageFallback?: string;
   demoUrl: string;
   githubUrl: string;
   technologies: string[];
@@ -29,7 +32,7 @@ const sampleProjects: Project[] = [
     imageUrl: elk2dImg,
     imageFallback:
       "https://raw.githubusercontent.com/omar-hossam0/portfolio1/main/src/assets/img/elk2d.png",
-    demoUrl: "https://elka2d.cloud/",
+    demoUrl: ELKA2D_URL,
     githubUrl: "#",
     technologies: ["React", "Node.js", "SQL"],
     tags: ["Design", "Web"],
@@ -110,26 +113,25 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
   const { ref, isVisible } = useScrollAnimation(0.1);
 
   const statusColors: Record<string, string> = {
-    live: "bg-green-500/20 text-green-400 border-green-500/30",
-    "in-progress": "bg-amber-500/20 text-amber-400 border-amber-500/30",
-    completed: "bg-white/10 text-white/60 border-white/20",
+    live: "bg-white text-black border-white",
+    "in-progress": "bg-white/10 text-white border-white/20",
+    completed: "bg-white/10 text-white/75 border-white/20",
   };
 
   return (
     <div
       ref={ref}
-      className={`group transition-all duration-700 ${
+      className={`transition-all duration-700 ${
         isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
       }`}
       style={{ transitionDelay: `${index * 80}ms` }}
     >
-      <div className="glass-strong rounded-2xl overflow-hidden glass-reflection hover:border-accent/20 transition-all duration-500 hover:shadow-glow h-full flex flex-col">
-        {/* Image */}
-        <div className="relative overflow-hidden h-48 md:h-52">
+      <div className="project-card group h-full flex flex-col rounded-[1.25rem]">
+        <div className="relative overflow-hidden h-44 sm:h-48 md:h-52">
           <img
             src={project.imageUrl}
             alt={project.title}
-            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+            className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
             loading="lazy"
             onError={(e) => {
               const el = e.currentTarget as HTMLImageElement;
@@ -138,35 +140,38 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
               }
             }}
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+          {/* clickable overlay so clicking the image area opens the demo */}
+          <a
+            href={project.demoUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`Open ${project.title}`}
+            className="absolute inset-0 z-10"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent pointer-events-none" />
 
-          {/* Featured badge */}
           {project.featured && (
-            <div className="absolute top-3 right-3">
-              <span className="glass-accent rounded-full px-3 py-1 text-xs font-semibold text-accent-light flex items-center gap-1.5">
-                <Star
-                  size={12}
-                  className="text-accent-light fill-accent-light"
-                />
+            <div className="absolute top-3 right-3 pointer-events-none">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-white px-3 py-1 text-xs font-semibold text-black">
+                <Star size={12} className="text-black" />
                 Featured
               </span>
             </div>
           )}
 
-          {/* Status badge */}
-          <div className="absolute top-3 left-3">
+          <div className="absolute top-3 left-3 pointer-events-none">
             <span
-              className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium border backdrop-blur-sm ${
+              className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[11px] font-medium border ${
                 statusColors[project.status]
               }`}
             >
               <span
-                className={`w-1.5 h-1.5 rounded-full ${
+                className={`h-1.5 w-1.5 rounded-full ${
                   project.status === "live"
-                    ? "bg-green-400 animate-glow-pulse"
+                    ? "bg-black"
                     : project.status === "in-progress"
-                      ? "bg-amber-400"
-                      : "bg-white/40"
+                      ? "bg-white"
+                      : "bg-white/70"
                 }`}
               />
               {project.status === "in-progress"
@@ -175,61 +180,71 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
                   project.status.slice(1)}
             </span>
           </div>
-
-          {/* Hover overlay with single Visit button (project link) */}
-          <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            <a
-              href={project.demoUrl}
-              className="glass-btn-accent flex items-center gap-2 px-4 py-2 rounded-xl text-white hover:scale-105 transition-transform"
-              aria-label="Open project"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <ExternalLink size={18} />
-              <span className="font-semibold">Visit</span>
-            </a>
-          </div>
         </div>
 
-        {/* Content */}
-        <div className="p-5 md:p-6 flex flex-col flex-1">
+        <div className="flex flex-1 flex-col p-4 sm:p-5 md:p-6">
           <div className="flex items-start justify-between mb-2">
-            <h3 className="text-lg font-semibold text-white group-hover:text-accent-light transition-colors duration-300">
-              {project.title}
+            <h3 className="font-heading text-3xl italic leading-none text-white">
+              <a
+                href={project.demoUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:underline"
+                aria-label={`Open ${project.title}`}
+              >
+                {project.title}
+              </a>
             </h3>
-            <ArrowUpRight
-              size={18}
-              className="text-white/30 group-hover:text-accent-light group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all shrink-0 mt-1"
-            />
+            <a
+              href={project.demoUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`Open ${project.title}`}
+              className="relative z-20 text-white"
+            >
+              <ArrowUpRight
+                size={18}
+                className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+              />
+            </a>
           </div>
 
-          <p className="text-sm text-white/50 leading-relaxed mb-4 flex-1">
+          <p className="mb-4 flex-1 font-body text-sm font-light leading-relaxed text-white/82">
             {project.description}
           </p>
 
-          {/* Tags */}
-          <div className="flex flex-wrap gap-1.5 mb-4">
+          <div className="flex flex-wrap gap-2 mb-4">
             {project.tags.map((tag) => (
               <span
                 key={tag}
-                className="glass rounded-md px-2 py-0.5 text-[10px] font-medium text-white/50 uppercase tracking-wider"
+                className="liquid-glass rounded-full px-3 py-1 font-body text-[10px] font-semibold uppercase tracking-[0.2em] text-white/85"
               >
                 {tag}
               </span>
             ))}
           </div>
 
-          {/* Technologies */}
-          <div className="flex flex-wrap gap-1.5">
+          <div className="flex flex-wrap gap-2 mb-5">
             {project.technologies.map((tech) => (
               <span
                 key={tech}
-                className="rounded-md px-2 py-0.5 text-[11px] font-medium text-accent-light/80 bg-accent/10 border border-accent/15"
+                className="rounded-full bg-white/10 px-3 py-1 font-body text-[11px] font-medium text-white"
               >
                 {tech}
               </span>
             ))}
           </div>
+
+          <a
+            href={project.demoUrl}
+            className="liquid-glass-strong inline-flex items-center gap-2 rounded-full px-4 py-2 font-body text-xs uppercase tracking-[0.2em] text-white"
+            aria-label="Open project"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Visit
+            <ExternalLink size={14} />
+          </a>
         </div>
       </div>
     </div>
@@ -240,34 +255,29 @@ export default function Projects() {
   const { ref: titleRef, isVisible: titleVisible } = useScrollAnimation(0.2);
 
   return (
-    <section id="projects" className="relative py-24 md:py-32">
+    <section id="projects" className="relative bg-transparent py-24 md:py-32 scroll-offset">
       <div className="section-container relative z-10">
         {/* Section header */}
         <div
           ref={titleRef}
-          className={`text-center mb-16 transition-all duration-700 ${
+          className={`text-left mb-16 transition-all duration-700 ${
             titleVisible
               ? "opacity-100 translate-y-0"
               : "opacity-0 translate-y-8"
           }`}
         >
-          <span className="glass-accent rounded-full px-4 py-1.5 text-xs font-semibold text-accent-light uppercase tracking-wider inline-block mb-4">
-            Portfolio
-          </span>
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            Featured{" "}
-            <span className="text-glow bg-gradient-to-r from-accent-light to-blue-300 bg-clip-text text-transparent">
-              Projects
-            </span>
+          <p className="eyebrow mb-3">// Portfolio</p>
+          <h2 className="mb-4 font-heading text-[2.4rem] italic leading-none tracking-[-1.5px] text-white sm:text-5xl md:text-6xl">
+            Featured <span className="scribble-underline">Projects</span>
           </h2>
-          <p className="text-white/40 max-w-lg mx-auto">
+          <p className="max-w-2xl font-body text-white/78">
             A selection of projects that showcase my expertise in full-stack
             development, design systems, and innovative problem-solving.
           </p>
         </div>
 
         {/* Projects grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3 lg:gap-8">
           {sampleProjects.map((project, i) => (
             <ProjectCard key={project.id} project={project} index={i} />
           ))}

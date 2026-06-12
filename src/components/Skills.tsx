@@ -1,4 +1,6 @@
-import { useScrollAnimation } from "../hooks/useScrollAnimation";
+import { type MouseEvent } from "react";
+import { motion } from "framer-motion";
+import { Layers, Rocket, Sparkles } from "lucide-react";
 import awsImg from "../assets/img/aws.svg";
 
 const skills = [
@@ -19,73 +21,159 @@ const skills = [
   { name: "UI/UX", slug: "figma", color: "F24E1E" },
 ];
 
+const entrance = {
+  hidden: { filter: "blur(10px)", opacity: 0, y: 22 },
+  visible: { filter: "blur(0px)", opacity: 1, y: 0 },
+};
+
 export default function Skills() {
-  const { ref, isVisible } = useScrollAnimation(0.2);
+  const handleTilt = (event: MouseEvent<HTMLDivElement>) => {
+    const card = event.currentTarget;
+    const rect = card.getBoundingClientRect();
+    const x = event.clientX - rect.left;
+    const y = event.clientY - rect.top;
+    const rotateX = (y / rect.height - 0.5) * -12;
+    const rotateY = (x / rect.width - 0.5) * 12;
+
+    card.style.setProperty("--rx", `${rotateX}deg`);
+    card.style.setProperty("--ry", `${rotateY}deg`);
+    card.style.setProperty("--mx", `${x}px`);
+    card.style.setProperty("--my", `${y}px`);
+  };
+
+  const handleTiltLeave = (event: MouseEvent<HTMLDivElement>) => {
+    const card = event.currentTarget;
+    card.style.setProperty("--rx", "0deg");
+    card.style.setProperty("--ry", "0deg");
+  };
 
   return (
     <section
       id="skills"
-      className="relative min-h-screen flex items-center py-24 overflow-hidden"
+      className="relative flex min-h-screen items-center overflow-hidden bg-transparent px-4 py-24 scroll-offset"
     >
-      <div className="pointer-events-none absolute inset-0">
-        <div className="absolute -top-24 right-12 h-72 w-72 rounded-full bg-white/5 blur-3xl animate-float-slow" />
-        <div className="absolute -bottom-28 left-10 h-80 w-80 rounded-full bg-white/5 blur-3xl animate-float-slower" />
-      </div>
-
-      <div ref={ref} className="section-container relative z-10">
-        <div
-          className={`text-center mb-12 transition-all duration-700 ${
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-          }`}
+      <div className="section-container relative z-10">
+        <motion.div
+          variants={entrance}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.25 }}
+          transition={{ duration: 0.7, ease: "easeOut" }}
+          className="mb-10 max-w-3xl"
         >
-          <p className="text-sm uppercase tracking-[0.3em] text-white/40 mb-3">
-            Skills
+          <p className="mb-6 font-body text-[13px] text-white/80 sm:text-sm">
+            // Capabilities
           </p>
-          <h2 className="text-3xl md:text-4xl font-semibold text-white">
-            My Tech Stack
+          <h2 className="font-heading text-[3rem] italic leading-[0.9] tracking-[-2px] text-white sm:text-6xl md:text-7xl lg:text-[6rem] lg:tracking-[-3px]">
+            My Tech
+            <br />
+            Stack
           </h2>
-          <p className="text-white/50 mt-3 max-w-2xl mx-auto">
+          <p className="mt-5 max-w-2xl font-body text-[13px] font-light leading-relaxed text-white/85 sm:text-sm md:text-base">
             Tools and technologies I use to build modern web and mobile
             experiences.
           </p>
-        </div>
+        </motion.div>
 
-        <div className="flex flex-wrap gap-3 justify-center">
-          {skills.map((skill, index) => (
+        <motion.div
+          variants={entrance}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.12 }}
+          transition={{ duration: 0.7, delay: 0.15, ease: "easeOut" }}
+          className="mb-6 grid gap-3 sm:gap-4 sm:grid-cols-2 md:grid-cols-3"
+        >
+          {[
+            {
+              icon: Sparkles,
+              title: "Frontend Systems",
+              body: "Interfaces with crisp motion, responsive layouts, and a polished user experience.",
+            },
+            {
+              icon: Layers,
+              title: "Backend Logic",
+              body: "APIs, data models, integrations, and reliable application foundations.",
+            },
+            {
+              icon: Rocket,
+              title: "Mobile Delivery",
+              body: "Cross-platform app development with Flutter and product-minded execution.",
+            },
+          ].map(({ icon: Icon, title, body }) => (
             <div
-              key={skill.name}
-              className={`group inline-flex items-center gap-3 rounded-2xl border border-white/8 bg-white/5 px-4 py-2 backdrop-blur-md transition-all duration-700 hover:border-white/20 hover:bg-white/10 ${
-                isVisible
-                  ? "opacity-100 translate-y-0"
-                  : "opacity-0 translate-y-6"
-              }`}
-              style={{ transitionDelay: `${index * 40}ms` }}
+              key={title}
+              className="liquid-glass rounded-[1.25rem] p-5 md:min-h-[180px]"
             >
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-black/20">
-                <img
-                  src={
-                    skill.iconSrc
-                      ? skill.iconSrc
-                      : `https://cdn.simpleicons.org/${skill.slug}/${skill.color}`
-                  }
-                  alt={`${skill.name} logo`}
-                  className="h-6 w-6"
-                  loading="lazy"
-                  decoding="async"
-                  onError={(e) => {
-                    const el = e.currentTarget as HTMLImageElement;
-                    if (skill.name === "AWS") {
-                      const fallback =
-                        "https://raw.githubusercontent.com/omar-hossam0/portfolio1/main/src/assets/img/aws.svg";
-                      if (el.src !== fallback) el.src = fallback;
-                    }
-                  }}
-                />
+              <div className="liquid-glass mb-6 flex h-10 w-10 items-center justify-center rounded-[0.75rem] sm:h-11 sm:w-11 sm:mb-8">
+                <Icon size={18} className="text-white sm:size-[22px]" />
               </div>
-              <span className="text-sm font-medium text-white/80 whitespace-nowrap">
-                {skill.name}
-              </span>
+              <h3 className="font-heading text-2xl italic leading-none text-white sm:text-3xl">
+                {title}
+              </h3>
+              <p className="mt-3 max-w-[32ch] font-body text-[13px] font-light leading-relaxed text-white/90 sm:text-sm">
+                {body}
+              </p>
             </div>
+          ))}
+        </motion.div>
+
+        <div className="skills-grid">
+          {skills.map((skill, index) => (
+            <motion.div
+              key={skill.name}
+              initial={{ filter: "blur(10px)", opacity: 0, y: 34, scale: 0.95 }}
+              whileInView={{
+                filter: "blur(0px)",
+                opacity: 1,
+                y: 0,
+                scale: 1,
+              }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{
+                duration: 0.55,
+                delay: index * 0.045,
+                ease: "easeOut",
+              }}
+              className="skill-card group flex flex-col justify-between"
+              onMouseMove={handleTilt}
+              onMouseLeave={handleTiltLeave}
+            >
+              <div className="flex items-start justify-between gap-3">
+                <div className="liquid-glass skill-icon flex h-12 w-12 shrink-0 items-center justify-center rounded-[0.75rem]">
+                  <img
+                    src={
+                      skill.iconSrc
+                        ? skill.iconSrc
+                        : `https://cdn.simpleicons.org/${skill.slug}/${skill.color}`
+                    }
+                    alt={`${skill.name} logo`}
+                    className="h-7 w-7"
+                    loading="lazy"
+                    decoding="async"
+                    onError={(event) => {
+                      const element = event.currentTarget;
+                      if (skill.name === "AWS") {
+                        const fallback =
+                          "https://raw.githubusercontent.com/omar-hossam0/portfolio1/main/src/assets/img/aws.svg";
+                        if (element.src !== fallback) element.src = fallback;
+                      }
+                    }}
+                  />
+                </div>
+                <span className="rounded-full bg-white px-2.5 py-1 font-body text-[10px] font-semibold text-black">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+              </div>
+
+              <div>
+                <h3 className="font-heading text-3xl italic leading-none text-white">
+                  {skill.name}
+                </h3>
+                <p className="mt-2 font-body text-xs font-light text-white/75">
+                  Production-ready capability
+                </p>
+              </div>
+            </motion.div>
           ))}
         </div>
       </div>

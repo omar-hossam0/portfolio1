@@ -1,5 +1,6 @@
-import { useState, useEffect } from "react";
-import { Menu, X } from "lucide-react";
+import { useEffect, useState } from "react";
+import { ArrowUpRight, Menu, X } from "lucide-react";
+import { motion } from "framer-motion";
 
 const navLinks = [
   { label: "Home", href: "#hero" },
@@ -25,82 +26,89 @@ export default function Navigation() {
 
   return (
     <nav
-      className="fixed top-4 left-0 right-0 z-50"
+      className="fixed left-0 right-0 top-4 z-50 px-4 md:px-8 lg:px-16"
       role="navigation"
       aria-label="Main navigation"
     >
-      <div className="section-container">
-        <div className="mx-auto max-w-4xl">
-          <div
-            className={`relative overflow-hidden rounded-full border border-white/10 bg-gradient-to-r from-white/5 via-white/10 to-white/5 px-6 py-2.5 backdrop-blur-2xl shadow-[0_8px_30px_rgba(0,0,0,0.45)] before:pointer-events-none before:absolute before:inset-0 before:rounded-full before:bg-gradient-to-b before:from-white/20 before:to-transparent before:opacity-40 ${
-              scrolled ? "shadow-[0_12px_36px_rgba(0,0,0,0.55)]" : ""
-            }`}
+      <motion.div
+        initial={{ filter: "blur(10px)", opacity: 0, y: -16 }}
+        animate={{ filter: "blur(0px)", opacity: 1, y: 0 }}
+        transition={{ duration: 0.7, ease: "easeOut" }}
+        className="mx-auto flex max-w-6xl items-center justify-between"
+      >
+        <a
+          href="#hero"
+          onClick={(event) => {
+            event.preventDefault();
+            handleNavClick("#hero");
+          }}
+          className="liquid-glass flex h-12 w-12 items-center justify-center rounded-full font-heading text-3xl italic leading-none text-white"
+          aria-label="Go to top"
+        >
+          o
+        </a>
+
+        <div
+          className={`hidden items-center gap-1 rounded-full px-1.5 py-1.5 md:flex ${
+            scrolled ? "liquid-glass-strong" : "liquid-glass"
+          }`}
+        >
+          {navLinks.map((link) => (
+            <a
+              key={link.href}
+              href={link.href}
+              onClick={(event) => {
+                event.preventDefault();
+                handleNavClick(link.href);
+              }}
+              className="rounded-full px-3 py-2 font-body text-sm font-medium text-white/90 transition-colors hover:text-white"
+            >
+              {link.label}
+            </a>
+          ))}
+          <a
+            href="#contact"
+            onClick={(event) => {
+              event.preventDefault();
+              handleNavClick("#contact");
+            }}
+            className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 font-body text-sm font-semibold text-black"
           >
-            <div className="relative z-10 flex items-center justify-between w-full">
-              {/* Logo */}
-              <a
-                href="#hero"
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleNavClick("#hero");
-                }}
-                className="text-sm md:text-base font-semibold tracking-tight text-white hover:text-white/80 transition-colors duration-300"
-                aria-label="Go to top"
-              >
-                omar
-              </a>
+            Hire Me
+            <ArrowUpRight size={16} />
+          </a>
+        </div>
 
-              {/* Desktop links */}
-              <div className="hidden md:flex items-center gap-8 absolute left-1/2 -translate-x-1/2">
-                {navLinks.map((link) => (
-                  <a
-                    key={link.href}
-                    href={link.href}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      handleNavClick(link.href);
-                    }}
-                    className="text-sm font-medium text-white/60 hover:text-white transition-colors duration-300"
-                  >
-                    {link.label}
-                  </a>
-                ))}
-              </div>
+        <button
+          type="button"
+          onClick={() => setMobileOpen((open) => !open)}
+          className="liquid-glass flex h-12 w-12 items-center justify-center rounded-full text-white md:hidden"
+          aria-label={mobileOpen ? "Close menu" : "Open menu"}
+          aria-expanded={mobileOpen}
+        >
+          {mobileOpen ? <X size={20} /> : <Menu size={20} />}
+        </button>
+      </motion.div>
 
-              {/* Mobile toggle */}
-              <button
-                onClick={() => setMobileOpen(!mobileOpen)}
-                className="md:hidden rounded-full border border-white/15 bg-white/5 p-2 text-white/80 hover:text-white hover:border-white/30 transition-colors"
-                aria-label={mobileOpen ? "Close menu" : "Open menu"}
-                aria-expanded={mobileOpen}
-              >
-                {mobileOpen ? <X size={20} /> : <Menu size={20} />}
-              </button>
-            </div>
-          </div>
-
-          {/* Mobile menu */}
-          <div
-            className={`md:hidden overflow-hidden transition-all duration-400 ease-out ${
-              mobileOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
-            }`}
-          >
-            <div className="mx-4 mt-3 mb-4 rounded-2xl border border-white/10 bg-white/5 p-4 space-y-1 backdrop-blur-xl">
-              {navLinks.map((link) => (
-                <a
-                  key={link.href}
-                  href={link.href}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleNavClick(link.href);
-                  }}
-                  className="block px-4 py-3 text-sm text-white/70 hover:text-white hover:bg-white/5 rounded-xl transition-colors duration-200"
-                >
-                  {link.label}
-                </a>
-              ))}
-            </div>
-          </div>
+      <div
+        className={`mx-auto mt-3 max-w-sm overflow-hidden transition-all duration-300 md:hidden ${
+          mobileOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+        }`}
+      >
+        <div className="liquid-glass rounded-[1.25rem] p-3">
+          {navLinks.map((link) => (
+            <a
+              key={link.href}
+              href={link.href}
+              onClick={(event) => {
+                event.preventDefault();
+                handleNavClick(link.href);
+              }}
+              className="block rounded-full px-4 py-3 font-body text-sm font-medium text-white/90"
+            >
+              {link.label}
+            </a>
+          ))}
         </div>
       </div>
     </nav>
